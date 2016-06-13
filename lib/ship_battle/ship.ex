@@ -8,17 +8,15 @@ defmodule ShipBattle.Ship do
   end
 
   def take_damage(id, dmg) do
-    target_pid = :gproc.lookup_local_name({:ship, id})
+    target_pid = :syn.find_by_key({:ship, id})
     GenServer.call(target_pid, {:take_damage, dmg})
   end
 
   # GenServer Callbacks
 
   def init(id) do
+    # TODO: check process registry before 
     # TODO: load ship config from DB?
-
-    # register in gproc
-    :gproc.add_local_name({:ship, id})
 
     # initialize state
     shield = %{
@@ -38,7 +36,11 @@ defmodule ShipBattle.Ship do
       shield: shield,
     }
 
-    {:ok, ship_state}
+    # register in gproc
+    case :syn.register({:ship, id}, self()) do
+      :ok -> {:ok, ship_state}
+      {:error, reason} -> {:stop, reason}
+    end
   end
 
   # If ship is destroyed, ignore any message after

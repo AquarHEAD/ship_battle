@@ -4,9 +4,13 @@ defmodule ShipBattle.ShipTest do
   @ship_id 123
 
   setup_all do
-    @ship_id
-    |> ShipBattle.Ship.Supervisor.start_ship
+    :syn.init
+    ShipBattle.Ship.Supervisor.start_ship @ship_id
 
     :ok
+  end
+
+  test "starting another Ship with same id should fail" do
+    assert {:error, :taken} == ShipBattle.Ship.Supervisor.start_ship @ship_id
   end
 end

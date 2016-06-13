@@ -11,6 +11,13 @@ Client connect via WebSocket, commands are verified in WebSocket process, then s
 ## Testing in iex
 
 ```elixir
+# Connect to other nodes first
+Node.connect :"node1@Mashiro"
+
+# Then initialize Syn
+:syn.init
+
+# Play
 iex(1)> ShipBattle.Ship.Supervisor.start_ship 123
 {:ok, #PID<0.149.0>}
 iex(2)> ShipBattle.Ship.take_damage(123, %{em: 120})

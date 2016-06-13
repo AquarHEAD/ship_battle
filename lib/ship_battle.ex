@@ -2,6 +2,10 @@ defmodule ShipBattle do
   use Application
 
   def start(_type, _args) do
+    # Initialize syn (seems not working if before Node.connect)
+    # :syn.init
+
+    # Start ShipBattle supervision tree
     import Supervisor.Spec, warn: false
 
     children = [

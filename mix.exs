@@ -11,11 +11,13 @@ defmodule ShipBattle.Mixfile do
   end
 
   def application do
-    [applications: [:logger, :gproc],
+    [applications: [:logger, :syn],
      mod: {ShipBattle, []}]
   end
 
   defp deps do
-    [{:gproc, "~> 0.5"}]
+    [
+      {:syn, "~> 1.4"},
+    ]
   end
 end
