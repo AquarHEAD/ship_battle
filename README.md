@@ -1,20 +1,9 @@
 # ShipBattle
 
-**TODO: Add description**
+## Overview
 
-## Installation
+The project is generated with `mix new --sup`.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+Root Supervisor will supervise 3 sub-supervisor, for Ship, Player and WebSocket respectively.
 
-  1. Add ship_battle to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:ship_battle, "~> 0.0.1"}]
-        end
-
-  2. Ensure ship_battle is started before your application:
-
-        def application do
-          [applications: [:ship_battle]]
-        end
-
+Client connect via WebSocket, commands are verified in WebSocket process, then send to Player process, then Ship.
